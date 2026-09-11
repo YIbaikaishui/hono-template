@@ -1,0 +1,13 @@
+# Normalize all text files to LF in the repository (checked out as-is on
+# Unix; Windows users can opt into CRLF locally). Keeps diffs clean across
+# platforms and keeps shell scripts / Dockerfiles working everywhere.
+* text=auto eol=lf
+
+# Windows scripts need CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Binaries
+*.png binary
+*.jpg binary
+*.ico binary

@@ -1,0 +1,42 @@
+{
+  "name": "hono-template",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
+  "description": "High-performance Hono API template on Bun with PostgreSQL (Drizzle) and Redis",
+  "engines": {
+    "bun": ">=1.2.0"
+  },
+  "scripts": {
+    "dev": "bun --hot src/index.ts",
+    "start": "bun src/index.ts",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:studio": "drizzle-kit studio",
+    "db:seed": "bun run src/db/seed.ts",
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down"
+  },
+  "dependencies": {
+    "@hono/zod-validator": "^0.9.1",
+    "drizzle-orm": "^0.45.2",
+    "hono": "^4.13.7",
+    "ioredis": "^6.0.0",
+    "pino": "^10.3.1",
+    "postgres": "^3.4.9",
+    "zod": "^4.6.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.35.0",
+    "@types/bun": "^1.4.2",
+    "drizzle-kit": "^0.31.10",
+    "eslint": "^9.35.0",
+    "prettier": "^3.6.2",
+    "pino-pretty": "^13.1.1",
+    "typescript": "^5.9.0",
+    "typescript-eslint": "^8.43.0"
+  }
+}

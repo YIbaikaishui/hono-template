@@ -1,0 +1,27 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+*.tsbuildinfo
+
+# env — never commit real credentials
+.env
+.env.local
+.env.*.local
+
+# drizzle-kit output metadata
+drizzle/meta/_journal.json.bak
+
+# logs
+*.log
+logs/
+
+# editor / os
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# bun
+bun.lockb
