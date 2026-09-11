@@ -1,0 +1,50 @@
+# 每月把全部依赖刷新到最新大版本（模板仓库专用：模板要一直跟最新走）。
+# Dependabot 只处理 semver 范围内的更新；大版本升级由这个 workflow 负责。
+name: deps-refresh
+
+on:
+  schedule:
+    - cron: '0 3 1 * *' # 每月 1 号 03:00 UTC
+  workflow_dispatch: # 支持手动触发
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 11
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Upgrade all dependencies to latest
+        run: |
+          pnpm install --no-frozen-lockfile
+          pnpm update --latest
+
+      - name: Typecheck & lint
+        run: |
+          pnpm typecheck
+          pnpm lint
+
+      - name: Create refresh PR
+        uses: peter-evans/create-pull-request@v8
+        with:
+          branch: deps/monthly-refresh
+          delete-branch: true
+          commit-message: 'chore(deps): refresh all dependencies to latest'
+          title: 'chore(deps): refresh all dependencies to latest'
+          body: |
+            自动生成的月度依赖刷新：全部依赖已升级到最新版，typecheck + lint 已通过。
+
+            合并前建议本地跑一次 `pnpm dev` 冒烟（数据库故障时 `/ready` 应为 503）。
+          labels: dependencies

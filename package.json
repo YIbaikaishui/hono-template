@@ -4,6 +4,7 @@
   "type": "module",
   "private": true,
   "description": "High-performance Hono API template on Bun with PostgreSQL (Drizzle) and Redis",
+  "packageManager": "pnpm@11.22.0",
   "engines": {
     "bun": ">=1.2.0"
   },
